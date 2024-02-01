@@ -1,8 +1,8 @@
 const express = require("express");
-const movie = require("../src/routes/movie");
+const user = require("../src/routes/user");
 
 module.exports = function (app) {
   app
     .use(express.json())
-    .use("/api/movie", movie);
+    .use("/user", user);
 };
