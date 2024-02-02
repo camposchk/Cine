@@ -99,6 +99,18 @@ class UserController {
         .json({ message: "Ocorreu um erro no servidor", data: error.message });
     }
   }
+
+  static async getById(id){
+    try {
+        const user = await User.findById(id);
+        // if(!user) 
+        //     return res.status(404).send({message: 'Usuário nao encontrado'});
+        
+        return user;
+    } catch (error) {
+        throw error;
+    }
+  }
 }
 
 module.exports = UserController;

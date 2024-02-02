@@ -1,4 +1,5 @@
 const { Movie } = require("../model/movie");
+const UserController = require("./userController");
 
 class MovieController {
   static async register(req, res) {
@@ -40,6 +41,66 @@ class MovieController {
         .send({ message: "Something failed", data: error.message });
     }
   }
+
+  static async getAll(res){
+    const movies = await Movie.find();
+    return res.status(200).send(movies);  
+  }
+
+  static async getById(req,res){
+    try {
+        const movie = await Movie.findById(req.params.id);
+        if(!movie) 
+            return res.status(404).send({message: 'Movie nao encontrado'});
+        
+        return res.status(200).send(movie);
+    } catch (error) {
+        throw error;
+    }
+}
+
+  static async rating(req, res) {
+    const { idMovie, idUser } = req.params;
+    const { stars } = req.body;
+
+    const user = await UserController.getById(idUser);
+
+    if (!user)
+        return res.status(400).send({ message: "id do usuário não existe" });
+
+
+    try {
+        const movies = await Movie.findById(idMovie);
+        if (!movies) {
+            return res.status(404).send({ message: "Filme não encontrado" });
+        }
+
+        if (movies.rating.some(rating => rating.userId === idUser)) {
+          
+          const index = movies.rating.findIndex(rating => rating.userId === idUser);
+          if (index !== -1) {
+              movies.rating.splice(index, 1);
+              await movies.save();
+              return res.status(400).send({ message: "Avaliação removida" });
+          }
+
+        } else {
+             
+            if (stars >= 1 && stars <= 5) {
+              movies.rating.push({idUser,stars});
+                await movies.save();
+                return res.status(200).send();
+            } else {
+                return res.status(400).send({ message: "O valor do review deve estar entre 1 e 5" });
+            }
+        }
+
+    } catch (error) {
+       
+        return res.status(500).send({ error: "Falha ao avaliar", data: error.message })
+    }
+};
+
 
 }
 
