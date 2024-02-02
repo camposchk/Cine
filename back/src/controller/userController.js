@@ -50,7 +50,13 @@ class UserController {
   }
 
   static async login(req, res) {
-    const { email, password } = req.body;
+    const decryptedBody = CryptoJS.AES.decrypt(
+      req.body.jsonCrypt, process.env.SECRET
+    ).toString(CryptoJS.enc.Utf8)
+
+    const json = JSON.parse(decryptedBody);
+
+    const { email, password } = json;
 
     if (!email)
       return res.status(400).json({ message: "O email é obrigatório" });
