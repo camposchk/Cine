@@ -14,11 +14,11 @@ const movieSchema = new mongoose.Schema({
     required: true
   },
   rating:  [{
-    userId: { type: String },
+    idUser: { type: String },
     stars: { type: Number, min: 1, max: 5 },
   }],
   launchDate: {
-    type: Date,
+    type: Number,
     required: true,
   },
  

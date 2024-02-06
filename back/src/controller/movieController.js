@@ -1,5 +1,6 @@
 const { Movie } = require("../model/movie");
 const UserController = require("./userController");
+const moment = require('moment');
 
 class MovieController {
   static async register(req, res) {
@@ -20,6 +21,7 @@ class MovieController {
 
     if (movieExist)
       return res.status(422).json({ message: "O filme já existe" });
+
 
     const movie = new Movie({
       name,
@@ -42,7 +44,7 @@ class MovieController {
     }
   }
 
-  static async getAll(res){
+  static async getAll(req, res){
     const movies = await Movie.find();
     return res.status(200).send(movies);  
   }
@@ -74,26 +76,27 @@ class MovieController {
         if (!movies) {
             return res.status(404).send({ message: "Filme não encontrado" });
         }
+        const userRating = { idUser, stars };
 
-        if (movies.rating.some(rating => rating.userId === idUser)) {
-          
-          const index = movies.rating.findIndex(rating => rating.userId === idUser);
+        if(movies.rating.some(rating => rating.idUser === idUser)) {
+        
+          const index = movies.rating.findIndex(rating => rating.idUser === idUser);
           if (index !== -1) {
-              movies.rating.splice(index, 1);
+              movies.rating[index].stars = stars;
               await movies.save();
-              return res.status(400).send({ message: "Avaliação removida" });
+              return res.status(400).send({ message: "Avaliação atualizada!" });
           }
-
         } else {
-             
+
             if (stars >= 1 && stars <= 5) {
-              movies.rating.push({idUser,stars});
+                movies.rating.push(userRating);
                 await movies.save();
                 return res.status(200).send();
             } else {
                 return res.status(400).send({ message: "O valor do review deve estar entre 1 e 5" });
             }
         }
+
 
     } catch (error) {
        
