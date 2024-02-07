@@ -5,6 +5,7 @@ import LoginPage from "./pages/Login";
 import { AlertProvider } from "./context/alert";
 import FeedPage from "./pages/Feed";
 import MoviePage from "./pages/Movie";
+import MovieRegisterPage from "./pages/MovieRegister";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
         <Route path='/' element={<LoginPage />}/>
         <Route path='/feed' element={<FeedPage/>}/>
         <Route path='/movie-details' element={<MoviePage/>}/>
-
+        <Route path="/movie-register" element={<MovieRegisterPage/>}/>
       </Routes>
     </AlertProvider>
   );
