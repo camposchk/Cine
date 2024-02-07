@@ -22,9 +22,11 @@ class MovieController {
     if (movieExist)
       return res.status(422).json({ message: "O filme já existe" });
 
+      const upper = name.toUpperCase();
+
 
     const movie = new Movie({
-      name,
+      name: upper,
       description,
       genre,
       rating,

@@ -8,6 +8,8 @@ import FeedPage from "./pages/Feed";
 import MoviePage from "./pages/Movie";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { AccessDenied } from "./pages/AccessDenied";
+import MovieRegisterPage from "./pages/MovieRegister";
+
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
           }
         />
         <Route path="/movie-details" element={<MoviePage />} />
+        <Route path='/' element={<LoginPage />}/>
+        <Route path='/movie-details' element={<MoviePage/>}/>
+        <Route path="/movie-register" element={<MovieRegisterPage/>}/>
       </Routes>
     </AlertProvider>
   );
