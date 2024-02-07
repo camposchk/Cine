@@ -5,8 +5,9 @@ import {
     Col,
     Container,
     Row
+
 } from 'react-bootstrap'
-import { AiOutlineLike } from 'react-icons/ai'
+import { AiOutlineLike } from 'react-icons'
 import styles from './style.module.scss';
 import axios from 'axios';
  

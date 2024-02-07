@@ -7,7 +7,14 @@ require("dotenv").config();
 
 class UserController {
   static async register(req, res) {
-    const { name, email, password, confirmPassword } = req.body;
+    const decryptedBody = CryptoJS.AES.decrypt(
+      req.body.jsonCrypt,
+      process.env.SECRET
+    ).toString(CryptoJS.enc.Utf8);
+
+    const json = JSON.parse(decryptedBody);
+
+    const { name, email, password, confirmPassword } = json;
 
     if (!name) return res.status(400).json({ message: "O nome é obrigatório" });
 
@@ -51,8 +58,9 @@ class UserController {
 
   static async login(req, res) {
     const decryptedBody = CryptoJS.AES.decrypt(
-      req.body.jsonCrypt, process.env.SECRET
-    ).toString(CryptoJS.enc.Utf8)
+      req.body.jsonCrypt,
+      process.env.SECRET
+    ).toString(CryptoJS.enc.Utf8);
 
     const json = JSON.parse(decryptedBody);
 
@@ -94,21 +102,22 @@ class UserController {
         token,
       });
     } catch (error) {
+      console.log(error.message);
       return res
         .status(500)
         .json({ message: "Ocorreu um erro no servidor", data: error.message });
     }
   }
 
-  static async getById(id){
+  static async getById(id) {
     try {
-        const user = await User.findById(id);
-        // if(!user) 
-        //     return res.status(404).send({message: 'Usuário nao encontrado'});
-        
-        return user;
+      const user = await User.findById(id);
+      // if(!user)
+      //     return res.status(404).send({message: 'Usuário nao encontrado'});
+
+      return user;
     } catch (error) {
-        throw error;
+      throw error;
     }
   }
 }

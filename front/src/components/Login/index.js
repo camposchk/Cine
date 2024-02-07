@@ -34,7 +34,7 @@ function LoginComponent() {
       });
 
       sessionStorage.setItem("token", res.data.token);
-      navigate("/");
+      navigate("/feed");
     } catch (error) {
         console.log(json);
       setMessage("Erro ao se conectar");
@@ -68,6 +68,10 @@ function LoginComponent() {
 
         <Button variant="primary" type="submit" style={{ marginBottom: 100 }}>
           Submit
+        </Button>
+
+        <Button variant="secondary" type="button" style={{ marginBottom: 100, marginLeft: 10 }} onClick={() => navigate("/register")}>
+          Register
         </Button>
       </Form>
     </>
