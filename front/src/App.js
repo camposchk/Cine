@@ -9,30 +9,31 @@ import MoviePage from "./pages/Movie";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { AccessDenied } from "./pages/AccessDenied";
 import MovieRegisterPage from "./pages/MovieRegister";
-
+import { I18nextProvider } from 'react-i18next';
+import i18n from './languages/i18n';
 
 function App() {
   return (
-    <AlertProvider>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route
-          path="/feed"
-          element={
-            <ProtectedRoute
-              errorPage={<AccessDenied />}
-              targetPage={<FeedPage />}
-            />
-          }
-        />
-        <Route path="/movie-details" element={<MoviePage />} />
-        <Route path='/' element={<LoginPage />}/>
-        <Route path='/movie-details' element={<MoviePage/>}/>
-        <Route path="/movie-register" element={<MovieRegisterPage/>}/>
-      </Routes>
-    </AlertProvider>
+    <I18nextProvider i18n={i18n}>
+      <AlertProvider>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/feed"
+            element={
+              <ProtectedRoute
+                errorPage={<AccessDenied />}
+                targetPage={<FeedPage />}
+              />
+            }
+          />
+          <Route path="/movie-details" element={<MoviePage />} />
+          <Route path='/movie-details' element={<MoviePage/>}/>
+          <Route path="/movie-register" element={<MovieRegisterPage/>}/>
+        </Routes>
+      </AlertProvider>
+    </I18nextProvider>
   );
 }
 

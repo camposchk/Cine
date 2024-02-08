@@ -16,6 +16,14 @@ export default function ProtectedRoute({ errorPage, targetPage }) {
     const decodeToken = jwtDecode(token);
     const { exp } = decodeToken;
 
+    const isAdm = decodeToken.isAdm;
+
+    if (isAdm) {
+        console.log("O usuário é um administrador.");
+    } else {
+        console.log("O usuário não é um administrador.");
+    }
+
     if (exp + "000" - Date.now() < 0) {
       setPage(errorPage);
       return;

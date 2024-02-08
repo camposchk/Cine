@@ -63,47 +63,58 @@ class MovieController {
     }
 }
 
-  static async rating(req, res) {
-    const { idMovie, idUser } = req.params;
-    const { stars } = req.body;
+static async deleteById(req, res) {
+  try {
+    await Movie.deleteById(req.params.id);
 
-    const user = await UserController.getById(idUser);
+    return res.status(200).send({ message: "Filme excluído com sucesso" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send({ message: "Erro ao excluir filme" });
+  }
+}
 
-    if (!user)
-        return res.status(400).send({ message: "id do usuário não existe" });
+static async rating(req, res) {
+  const { idMovie, idUser } = req.params;
+  const { stars } = req.body;
+
+  const user = await UserController.getById(idUser);
+
+  if (!user)
+      return res.status(400).send({ message: "id do usuário não existe" });
 
 
-    try {
-        const movies = await Movie.findById(idMovie);
-        if (!movies) {
-            return res.status(404).send({ message: "Filme não encontrado" });
+  try {
+      const movies = await Movie.findById(idMovie);
+      if (!movies) {
+          return res.status(404).send({ message: "Filme não encontrado" });
+      }
+      const userRating = { idUser, stars };
+
+      if(movies.rating.some(rating => rating.idUser === idUser)) {
+      
+        const index = movies.rating.findIndex(rating => rating.idUser === idUser);
+        if (index !== -1) {
+            movies.rating[index].stars = stars;
+            await movies.save();
+            return res.status(400).send({ message: "Avaliação atualizada!" });
         }
-        const userRating = { idUser, stars };
+      } else {
 
-        if(movies.rating.some(rating => rating.idUser === idUser)) {
-        
-          const index = movies.rating.findIndex(rating => rating.idUser === idUser);
-          if (index !== -1) {
-              movies.rating[index].stars = stars;
+          if (stars >= 1 && stars <= 5) {
+              movies.rating.push(userRating);
               await movies.save();
-              return res.status(400).send({ message: "Avaliação atualizada!" });
+              return res.status(200).send();
+          } else {
+              return res.status(400).send({ message: "O valor do review deve estar entre 1 e 5" });
           }
-        } else {
-
-            if (stars >= 1 && stars <= 5) {
-                movies.rating.push(userRating);
-                await movies.save();
-                return res.status(200).send();
-            } else {
-                return res.status(400).send({ message: "O valor do review deve estar entre 1 e 5" });
-            }
-        }
+      }
 
 
-    } catch (error) {
-       
-        return res.status(500).send({ error: "Falha ao avaliar", data: error.message })
-    }
+  } catch (error) {
+      
+      return res.status(500).send({ error: "Falha ao avaliar", data: error.message })
+  }
 };
 
 

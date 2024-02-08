@@ -3,7 +3,7 @@ A movies related react node mongo project
 
 * Requirements:
 - [X] React, Node and MongoDB
-- [ ] 5 pages long minimum
+- [X] 5 pages long minimum
 - [X] Login
 - [ ] Only admin can delete
 - [ ] Website translation

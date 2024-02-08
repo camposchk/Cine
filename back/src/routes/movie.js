@@ -7,5 +7,6 @@ route
     .get("/", MovieController.getAll)
     .get("/:id", MovieController.getById)
     .post("/rating/:idMovie/:idUser", MovieController.rating)
+    .delete("/delete/:idMovie", MovieController.deleteById)
 
 module.exports = route;
