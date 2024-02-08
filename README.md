@@ -2,11 +2,11 @@
 A movies related react node mongo project 
 
 * Requirements:
-- [ ] React, Node and MongoDB
-- [ ] 5 pages long
-- [ ] Login
+- [X] React, Node and MongoDB
+- [X] 5 pages long minimum
+- [X] Login
 - [ ] Only admin can delete
 - [ ] Website translation
 - [ ] Pagination
-- [ ] Password encrypted
-- [ ] User alerts (e.g. Registered successfully)
+- [X] Password encrypted
+- [X] User alerts (e.g. Registered successfully)

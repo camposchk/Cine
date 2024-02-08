@@ -7,7 +7,14 @@ require("dotenv").config();
 
 class UserController {
   static async register(req, res) {
-    const { name, email, password, confirmPassword } = req.body;
+    const decryptedBody = CryptoJS.AES.decrypt(
+      req.body.jsonCrypt,
+      process.env.SECRET
+    ).toString(CryptoJS.enc.Utf8);
+
+    const json = JSON.parse(decryptedBody);
+
+    const { name, email, password, confirmPassword, isAdm } = json;
 
     if (!name) return res.status(400).json({ message: "O nome é obrigatório" });
 
@@ -19,6 +26,7 @@ class UserController {
 
     if (password != confirmPassword)
       return res.status(400).json({ message: "As senhas não conferem" });
+
 
     const userExist = await User.findOne({ email: email });
 
@@ -34,6 +42,7 @@ class UserController {
       name,
       email,
       password: passwordCrypt,
+      isAdm
       //   createdAt: Date.now(),
       //   updatedAt: Date.now(),
       //   removedAt: null,
@@ -51,8 +60,9 @@ class UserController {
 
   static async login(req, res) {
     const decryptedBody = CryptoJS.AES.decrypt(
-      req.body.jsonCrypt, process.env.SECRET
-    ).toString(CryptoJS.enc.Utf8)
+      req.body.jsonCrypt,
+      process.env.SECRET
+    ).toString(CryptoJS.enc.Utf8);
 
     const json = JSON.parse(decryptedBody);
 
@@ -70,45 +80,47 @@ class UserController {
       if (!user) {
         return res.status(401).json({ message: "Usuário não encontrado" });
       }
-
+      
       const decryptedPassword = CryptoJS.AES.decrypt(
         user.password,
         process.env.SECRET
-      ).toString(CryptoJS.enc.Utf8);
-
-      if (password !== decryptedPassword) {
-        return res.status(401).json({ message: "Senha incorreta" });
-      }
-
-      const token = jwt.sign(
-        {
-          id: user._id,
-          email: user.email,
-        },
-        process.env.SECRET,
-        { expiresIn: "1h" }
-      );
-
+        ).toString(CryptoJS.enc.Utf8);
+        
+        if (password !== decryptedPassword) {
+          return res.status(401).json({ message: "Senha incorreta" });
+        }
+        
+        const token = jwt.sign(
+          {
+            id: user._id,
+            email: user.email,
+            isAdm: user.isAdm
+          },
+          process.env.SECRET,
+          { expiresIn: "1h" }
+        );
+        
       res.status(200).json({
         message: "Login efetuado com sucesso",
         token,
       });
     } catch (error) {
+      console.log(error.message);
       return res
         .status(500)
         .json({ message: "Ocorreu um erro no servidor", data: error.message });
     }
   }
 
-  static async getById(id){
+  static async getById(id) {
     try {
-        const user = await User.findById(id);
-        // if(!user) 
-        //     return res.status(404).send({message: 'Usuário nao encontrado'});
-        
-        return user;
+      const user = await User.findById(id);
+      // if(!user)
+      //     return res.status(404).send({message: 'Usuário nao encontrado'});
+
+      return user;
     } catch (error) {
-        throw error;
+      throw error;
     }
   }
 }

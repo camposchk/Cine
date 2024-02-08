@@ -4,9 +4,10 @@ import {
     Card,
     Col,
     Container,
-    Row
+    Row,
+    Image
 } from 'react-bootstrap'
-import { AiOutlineLike } from 'react-icons';
+import { AiOutlineLike } from 'react-icons'
 import styles from './style.module.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
@@ -75,6 +76,7 @@ export default function Feed(){
             rows.push(
                 <Row key={movie1._id}>
                     <Col md={6}>
+<<<<<<< HEAD
                         <Card onClick={() => handleClick(idMovie1)} className={styles.card}>
                             <Card.Title className={styles.card__title}>
                                 {movie1.name}
@@ -86,6 +88,27 @@ export default function Feed(){
                                 <Card.Text className={styles.card__body__article}>Rating: {media1}</Card.Text>
                             </Card.Body>
                         </Card>
+=======
+                    <Card className={styles.card}>
+                        <Row>
+                            <Col md={4}>
+                                <Image src={"https://i.pinimg.com/474x/a4/17/1f/a4171f2f1e5703c9c023128b2250af43.jpg"} fluid />
+                            </Col>
+                            <Col md={8}>
+                                <Card.Body>
+                                    <Card.Title className={styles.card__title}>
+                                        {movie1.name}
+                                    </Card.Title>
+                                    <Card.Text className={styles.card__body__article}>Genre: {movie1.genre}</Card.Text>
+                                    {/* Verificar essa gambiarra pra exibir o ano sem diminuir um ano */}
+                                    <Card.Text className={styles.card__body__article}>Launch Year: {movie1.launchDate}</Card.Text>
+                                    <Card.Text className={styles.card__body__article}>Description: {movie1.description}</Card.Text>
+                                    <Card.Text className={styles.card__body__article}>Rating: {media1}</Card.Text>
+                                </Card.Body>
+                            </Col>
+                        </Row>
+                    </Card>
+>>>>>>> 91788fd381856d4421b7236da7ffe293d364ea13
                     </Col>
                     {movie2 && (
                         <Col md={6}>
