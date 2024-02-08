@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />}/>
         <Route path='/feed' element={<FeedPage/>}/>
-        <Route path='/movie-details' element={<MoviePage/>}/>
+        <Route path='/movie-details/:idMovie' element={<MoviePage/>}/>
         <Route path="/movie-register" element={<MovieRegisterPage/>}/>
       </Routes>
     </AlertProvider>

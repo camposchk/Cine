@@ -1,0 +1,28 @@
+.stars{
+    fill: #FF975D;
+    border: #FF975D;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    & li {
+      padding: 0 1rem 0 0;
+      & input {
+        display: none;
+      }
+      & label > img {
+        width: 2.875rem;
+        padding: 0.25rem;
+        padding-bottom: 0.5rem;
+        cursor: pointer;
+        border-color:  #FF975D;
+        &:hover {
+          fill: #FF975D
+        }
+      }
+      & input[type='radio']:checked + label  {
+        fill: #FF975D
+      }
+    }
+  }

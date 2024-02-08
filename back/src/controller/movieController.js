@@ -2,6 +2,7 @@ const { Movie } = require("../model/movie");
 const UserController = require("./userController");
 const moment = require('moment');
 
+
 class MovieController {
   static async register(req, res) {
     const { name, description, genre, rating, launchDate } = req.body;

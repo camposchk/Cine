@@ -9,9 +9,13 @@ import {
 import { AiOutlineLike } from 'react-icons';
 import styles from './style.module.scss';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
+
  
 export default function Feed(){
     const [movies, setMovies] = useState([]);
+
+   const navigate = useNavigate();
  
     async function getAll() {
         try {
@@ -25,6 +29,12 @@ export default function Feed(){
     useEffect(() => {
         getAll();
     }, [])
+
+    function handleClick(idMovie) {
+        navigate(`/movie-details/${idMovie}`);
+        console.log(idMovie);
+    }
+    
 
     function MediaRating(movie) {
         if (!movie.rating || movie.rating.length === 0) {
@@ -53,19 +63,24 @@ export default function Feed(){
         for (let i = 0; i < movies.length; i += 2) {
             const movie1 = movies[i];
             const movie2 = i + 1 < movies.length ? movies[i + 1] : null;
-        
+            const idMovie1 = movie1._id;
+            let idMovie2;
+  
+            if (movie2 != null){         
+                idMovie2 = movie2._id;       
+            }
+
             const media1 = MediaRating(movie1);
             const media2 = movie2 ? MediaRating(movie2) : 0;
             rows.push(
-                <Row key={movie1.id}>
+                <Row key={movie1._id}>
                     <Col md={6}>
-                        <Card className={styles.card}>
+                        <Card onClick={() => handleClick(idMovie1)} className={styles.card}>
                             <Card.Title className={styles.card__title}>
                                 {movie1.name}
                             </Card.Title>
                             <Card.Body className={styles.card__body}>
                                 <Card.Text className={styles.card__body__article}>Genre: {movie1.genre}</Card.Text>
-                                {/* Verificar essa gambiarra pra exibir o ano sem diminuir um ano */}
                                 <Card.Text className={styles.card__body__article}>Launch Year: {movie1.launchDate}</Card.Text>
                                 <Card.Text className={styles.card__body__article}>Description: {movie1.description}</Card.Text>
                                 <Card.Text className={styles.card__body__article}>Rating: {media1}</Card.Text>
@@ -74,7 +89,7 @@ export default function Feed(){
                     </Col>
                     {movie2 && (
                         <Col md={6}>
-                            <Card className={styles.card}>
+                            <Card onClick={() => handleClick(idMovie2)} className={styles.card}>
                                 <Card.Title className={styles.card__title}>
                                     {movie2.name}
                                 </Card.Title>
