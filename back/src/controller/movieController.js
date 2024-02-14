@@ -60,7 +60,8 @@ class MovieController {
         
         return res.status(200).send(movie);
     } catch (error) {
-        throw error;
+      console.error(error);
+      return res.status(500).send({ message: 'Internal server error' });
     }
 }
 
@@ -98,7 +99,7 @@ static async rating(req, res) {
         if (index !== -1) {
             movies.rating[index].stars = stars;
             await movies.save();
-            return res.status(400).send({ message: "Avaliação atualizada!" });
+            return res.status(200).send({ message: "Avaliação atualizada!" });
         }
       } else {
 
