@@ -6,7 +6,6 @@ export default function ProtectedRoute({ errorPage, targetPage }) {
 
   function renderPage() {
     const token = sessionStorage.getItem("token");
-    console.log(token);
 
     if (!token) {
       setPage(errorPage);
@@ -18,11 +17,9 @@ export default function ProtectedRoute({ errorPage, targetPage }) {
 
     const isAdm = decodeToken.isAdm;
 
-    if (isAdm) {
-        console.log("O usuário é um administrador.");
-    } else {
-        console.log("O usuário não é um administrador.");
-    }
+
+    sessionStorage.setItem("isAdm", isAdm);
+
 
     if (exp + "000" - Date.now() < 0) {
       setPage(errorPage);

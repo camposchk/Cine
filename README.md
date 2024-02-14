@@ -5,8 +5,8 @@ A movies related react node mongo project
 - [X] React, Node and MongoDB
 - [X] 5 pages long minimum
 - [X] Login
-- [ ] Only admin can delete
-- [ ] Website translation
+- [X] Only admin can delete
+- [X] Website translation
 - [ ] Pagination
 - [X] Password encrypted
 - [X] User alerts (e.g. Registered successfully)

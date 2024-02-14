@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { AlertContext } from "../../context/alert";
 import axios from "axios";
 import styles from './style.module.scss';
+import { useTranslation } from 'react-i18next';
 
 
 function MovieRegister() {
   const { setMessage, setShow, setVariant } = useContext(AlertContext);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -19,10 +21,8 @@ function MovieRegister() {
 
   async function handleSubmit(e){
     e.preventDefault();
-    console.log("aaaa");
     if(!formValid())
     {
-        console.log("falos");
         return 
     } 
     try {
@@ -95,30 +95,30 @@ function formValid(){
     <>
       <Form className={styles.form_container} onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>{t('name')}</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter the movie name"
+            placeholder={t('name')}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicDescription">
-          <Form.Label>description</Form.Label>
+          <Form.Label>{t('description')}</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter the movie description"
+            placeholder={t('description')}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicGenre">
-          <Form.Label>Genre</Form.Label>
+          <Form.Label>{t('genre')}</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter the movie genre"
+            placeholder={t('genre')}
             value={genre}
             onChange={(e) => setGenre(e.target.value)}
           />
@@ -126,17 +126,17 @@ function formValid(){
 
         
         <Form.Group className="mb-3" controlId="formBasicLaunchDate">
-          <Form.Label>Year of Launch</Form.Label>
+          <Form.Label>{t('launchyear')}</Form.Label>
           <Form.Control
             type="number"
-            placeholder="enter the movie's year of release"
+            placeholder={t('launchyear')}
             value={launchDate}
             onChange={(e) => setLaunchDate(e.target.value)}
           />
         </Form.Group>
 
         <Button variant="primary" type="submit" className={styles.btn_save}>
-          Submit
+        {t('Register')}
         </Button>
       </Form>
     </>
