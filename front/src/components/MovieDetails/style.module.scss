@@ -1,28 +1,36 @@
 .stars{
     fill: #FF975D;
     border: #FF975D;
+    width: 1rem;
+
+}
+.stars:hover{
+  fill: #FF975D;
+    border: #FF975D;
+    width: 1rem;
 }
 
 .rating {
+    list-style: none;
+    padding: 0;
     display: flex;
-    justify-content: center;
-    & li {
-      padding: 0 1rem 0 0;
-      & input {
-        display: none;
-      }
-      & label > img {
-        width: 2.875rem;
-        padding: 0.25rem;
-        padding-bottom: 0.5rem;
-        cursor: pointer;
-        border-color:  #FF975D;
-        &:hover {
-          fill: #FF975D
-        }
-      }
-      & input[type='radio']:checked + label  {
-        fill: #FF975D
-      }
-    }
   }
+  
+  .rating li {
+    margin-right: 5px;
+  }
+  
+  .rating input[type="radio"] {
+    display: none;
+  }
+  
+  .rating label {
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .rating label:hover,
+  .rating input[type="radio"]:checked ~ label {
+    fill: #FF975D;
+  }
+  

@@ -11,21 +11,12 @@ import { AccessDenied } from "./pages/AccessDenied";
 import MovieRegisterPage from "./pages/MovieRegister";
 import { I18nextProvider } from 'react-i18next';
 import i18n from './languages/i18n';
+import { UserProvider } from "./context/user";
 
 function App() {
   return (
-<<<<<<< HEAD
-    <AlertProvider>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<LoginPage />}/>
-        <Route path='/feed' element={<FeedPage/>}/>
-        <Route path='/movie-details/:idMovie' element={<MoviePage/>}/>
-        <Route path="/movie-register" element={<MovieRegisterPage/>}/>
-      </Routes>
-    </AlertProvider>
-=======
     <I18nextProvider i18n={i18n}>
+      <UserProvider>
       <AlertProvider>
         <NavBar />
         <Routes>
@@ -39,13 +30,12 @@ function App() {
               />
             }
           />
-          <Route path="/movie-details" element={<MoviePage />} />
-          <Route path='/movie-details' element={<MoviePage/>}/>
+          <Route path='/movie-details/:idMovie' element={<MoviePage/>}/>
           <Route path="/movie-register" element={<MovieRegisterPage/>}/>
         </Routes>
       </AlertProvider>
+      </UserProvider>
     </I18nextProvider>
->>>>>>> 91788fd381856d4421b7236da7ffe293d364ea13
   );
 }
 
