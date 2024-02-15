@@ -72,13 +72,15 @@ function LoginComponent() {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" style={{ marginBottom: 100 }}>
-        {t('Login')}
-        </Button>
 
-        <Button variant="secondary" type="button" style={{ marginBottom: 100, marginLeft: 10 }} onClick={() => navigate("/register")}>
-        {t('Register')}
-        </Button>
+          <Button variant="primary" type="submit"  style={{ marginBottom: 100, backgroundColor: '#1A1D5F', border: 'none', width: '312px' }}>
+          {t('Login')}
+          </Button>
+
+          <Button variant="secondary" type="button" style={{ marginBottom: 100, marginLeft: 10, backgroundColor: '#FF975D', border: 'none',  width: '312px'    }} onClick={() => navigate("/register")}>
+          {t('Register')}
+          </Button>
+
       </Form>
     </>
   );

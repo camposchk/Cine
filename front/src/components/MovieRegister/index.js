@@ -135,7 +135,7 @@ function formValid(){
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" className={styles.btn_save}>
+        <Button variant="primary" type="submit" className={styles.btn_save} style={{ backgroundColor: '#1A1D5F', border: 'none'}}>
         {t('Register')}
         </Button>
       </Form>
