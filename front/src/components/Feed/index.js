@@ -13,7 +13,7 @@ export default function Feed() {
   var [page, setPage] = useState(1);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const placeholder = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Zp-P6BqVuFHEi4QR09YRPoQztwddP53P3Q&usqp=CAU"
+  const placeholder = "https://media.istockphoto.com/id/1039351052/vector/movie-and-film-festival-poster-template-design-modern-retro-vintage-style.webp?b=1&s=612x612&w=0&k=20&c=nIXBXVD0wwXog8LLdqbU_5_xUB-mM8X83UnSxKqBA6g="
 
   async function getAll() {
     try {
@@ -89,7 +89,7 @@ export default function Feed() {
               onClick={() => handleClick(idMovie1)}
               className={styles.card}
             >
-              <Card.Img  src={movie1?.imgPath??placeholder} style={{height: 300, width: 200}}/>
+              <Card.Img src={movie1?.imgPath || placeholder} style={{height: 300, width: 200}}/>
               <Card.Body className={styles.card__body}>
                 <div className={styles.card__title}>
                   {movie1.name}
@@ -116,7 +116,7 @@ export default function Feed() {
                 onClick={() => handleClick(idMovie2)}
                 className={styles.card}
               >
-                <Card.Img  src={movie2?.imgPath??placeholder} style={{height: 300, width: 200}}/>
+                <Card.Img src={movie2?.imgPath || placeholder} style={{height: 300, width: 200}}/>
                 <Card.Body className={styles.card__body}>
                   <div className={styles.card__title}>
                     {movie2.name}
