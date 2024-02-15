@@ -7,6 +7,6 @@ A movies related react node mongo project
 - [X] Login
 - [X] Only admin can delete
 - [X] Website translation
-- [ ] Pagination
+- [x] Pagination
 - [X] Password encrypted
 - [X] User alerts (e.g. Registered successfully)
