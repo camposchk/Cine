@@ -15,7 +15,7 @@ export default function Feed() {
 
   async function getAll() {
     try {
-      const res = await axios.get(`http://localhost:8080/movie/${page}`);
+      const res = await axios.get(`http://localhost:8080/movie/getall/${page}`);
       setMovies(res.data);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
