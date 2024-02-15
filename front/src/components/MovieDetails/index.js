@@ -100,7 +100,7 @@ export default function MovieDetails({ idMovie }) {
               <p>{MediaRating(movie)}</p>
             </div>
             <div>
-              <Button variant="light" onClick={abrirModal}>Abrir modal</Button>
+              {isAdm ? <></> : <Button variant="light" onClick={abrirModal}>Avaliar Filme</Button>}
               {isAdm() ? <Button variant="danger" onClick={handleDelete} style={{marginLeft: 10}}>{t('Delete')}</Button> : <></>}
               <Modal
                 isOpen={modalIsOpen}

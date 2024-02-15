@@ -1,10 +1,10 @@
 import React, { useEffect, useState, forwardRef } from "react";
 import { Button, Card, Col, Container, Row, Image, Fade } from "react-bootstrap";
-import { AiOutlineLike } from "react-icons";
 import styles from "./style.module.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { BsStarFill } from "react-icons/bs";
 
 export default function Feed() {
   const [movies, setMovies] = useState([]);
@@ -88,7 +88,7 @@ export default function Feed() {
                   {t("description")}: {movie1.description}
                 </Card.Text>
                 <Card.Text className={styles.card__body__article}>
-                  {t("rating")}: {media1}
+                  <BsStarFill className={styles.stars}/> {media1}
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -114,7 +114,7 @@ export default function Feed() {
                     {t("description")}: {movie2.description}
                   </Card.Text>
                   <Card.Text className={styles.card__body__article}>
-                    {t("rating")}: {media2}
+                    <BsStarFill className={styles.stars}/> {media2}
                   </Card.Text>
                 </Card.Body>
               </Card>
