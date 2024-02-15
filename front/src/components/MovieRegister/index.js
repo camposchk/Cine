@@ -18,6 +18,7 @@ function MovieRegister() {
   var [description, setDescription] = useState("");
   var [genre, setGenre] = useState("");
   var [launchDate, setLaunchDate] = useState("");
+  var [imgPath, setImgPath] = useState("");
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -30,7 +31,8 @@ function MovieRegister() {
             name,
             description,
             genre,
-            launchDate
+            launchDate,
+            imgPath
           });
         setMessage(res.data.message);
         setVariant('success')
@@ -39,6 +41,7 @@ function MovieRegister() {
         setDescription('');
         setGenre('');
         setLaunchDate('');
+        setImgPath('');
 
         navigate("/feed");
     } 
@@ -132,6 +135,16 @@ function formValid(){
             placeholder={t('launchyear')}
             value={launchDate}
             onChange={(e) => setLaunchDate(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicImgPath">
+          <Form.Label>{t('imgPath')}</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder={t('imgPath')}
+            value={imgPath}
+            onChange={(e) => setImgPath(e.target.value)}
           />
         </Form.Group>
 

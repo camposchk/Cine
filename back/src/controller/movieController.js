@@ -5,7 +5,7 @@ const moment = require('moment');
 
 class MovieController {
   static async register(req, res) {
-    const { name, description, genre, rating, launchDate } = req.body;
+    const { name, description, genre, rating, launchDate, imgPath } = req.body;
 
     if (!name) return res.status(400).json({ message: "O nome é obrigatório" });
 
@@ -31,7 +31,8 @@ class MovieController {
       description,
       genre,
       rating,
-      launchDate
+      launchDate,
+      imgPath
       //   createdAt: Date.now(),
       //   updatedAt: Date.now(),
       //   removedAt: null,

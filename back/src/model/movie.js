@@ -21,6 +21,9 @@ const movieSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  imgPath: {
+    type: String,
+  }
  
 });
 

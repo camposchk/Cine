@@ -22,6 +22,8 @@ i18n
             "rating a movie": "Rating a movie",
             "rate" : "Rate",
             "cancel" : "Cancel"
+            ,
+            "imgPath": "Image path"
         }
       },
       pt: {
@@ -38,7 +40,8 @@ i18n
             "rating": "Avaliação",
             "rating a movie": "Avaliar Filme",
             "rate" : "Avaliar",
-            "cancel" : "Cancelar"
+            "cancel" : "Cancelar",
+            "imgPath": "Caminho da imagem"
         }
       }
     },

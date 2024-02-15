@@ -13,6 +13,7 @@ export default function Feed() {
   var [page, setPage] = useState(1);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const placeholder = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Zp-P6BqVuFHEi4QR09YRPoQztwddP53P3Q&usqp=CAU"
 
   async function getAll() {
     try {
@@ -88,10 +89,11 @@ export default function Feed() {
               onClick={() => handleClick(idMovie1)}
               className={styles.card}
             >
-              <Card.Title className={styles.card__title}>
-                {movie1.name}
-              </Card.Title>
+              <Card.Img  src={movie1?.imgPath??placeholder} style={{height: 300, width: 200}}/>
               <Card.Body className={styles.card__body}>
+                <div className={styles.card__title}>
+                  {movie1.name}
+                </div>
                 <Card.Text className={styles.card__body__article}>
                   {t("genre")}: {movie1.genre}
                 </Card.Text>
@@ -114,10 +116,11 @@ export default function Feed() {
                 onClick={() => handleClick(idMovie2)}
                 className={styles.card}
               >
-                <Card.Title className={styles.card__title}>
-                  {movie2.name}
-                </Card.Title>
+                <Card.Img  src={movie2?.imgPath??placeholder} style={{height: 300, width: 200}}/>
                 <Card.Body className={styles.card__body}>
+                  <div className={styles.card__title}>
+                    {movie2.name}
+                  </div>
                   <Card.Text className={styles.card__body__article}>
                     {t("genre")}: {movie2.genre}
                   </Card.Text>
