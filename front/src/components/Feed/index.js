@@ -1,21 +1,22 @@
 import React, { useEffect, useState, forwardRef } from "react";
 // import { Button, Card, Col, Container, Row, Image, Fade } from "react-bootstrap";
-import { Card, Col, Container, Fade, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Fade, Row } from "react-bootstrap";
 import styles from "./style.module.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { BsStarFill } from "react-icons/bs";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function Feed() {
   const [movies, setMovies] = useState([]);
-
+  var [page, setPage] = useState(1);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   async function getAll() {
     try {
-      const res = await axios.get("http://localhost:8080/movie");
+      const res = await axios.get(`http://localhost:8080/movie/${page}`);
       setMovies(res.data);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
@@ -24,10 +25,22 @@ export default function Feed() {
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [page]);
 
   function handleClick(idMovie) {
     navigate(`/movie-details/${idMovie}`);
+  }
+
+  function handleUp(){
+    if(movies.length===4){
+        setPage(++page)
+    }
+}
+
+  function handleDown(){
+      if(page>1){
+          setPage(--page)
+      }
   }
 
   function MediaRating(movie) {
@@ -130,7 +143,12 @@ export default function Feed() {
 
   return (
     <Container>
-        <RenderPosts />
+         <RenderPosts />
+         <div className={styles.pagination}>
+            <Button variant="transparent" onClick={handleDown}><IoIosArrowBack style={{ fontSize: '50px' }} fill="#FF975D"/></Button>
+            {page}
+            <Button variant="transparent" onClick={handleUp}><IoIosArrowForward style={{ fontSize: '50px' }} fill="#FF975D"/></Button>
+         </div>
     </Container>
   );
 }

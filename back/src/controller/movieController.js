@@ -48,8 +48,17 @@ class MovieController {
   }
 
   static async getAll(req, res){
-    const movies = await Movie.find();
-    return res.status(200).send(movies);  
+
+    let page = req.params.page;
+    let limit = 4;
+    let skip = limit * (page - 1);
+
+    try{
+      const movies = await Movie.find().skip(skip).limit(limit);
+      return res.status(200).send(movies);  
+    }catch{
+      return res.status(500).send({message: "Falha ao carregar filmes", error})
+    }
   }
 
   static async getById(req,res){
