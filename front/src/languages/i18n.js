@@ -18,7 +18,10 @@ i18n
             "genre" : "Genre",
             "launchyear": "Launch Year",
             "description" : "Description",
-            "rating": "Rating"
+            "rating": "Rating",
+            "rating a movie": "Rating a movie",
+            "rate" : "Rate",
+            "cancel" : "Cancel"
         }
       },
       pt: {
@@ -32,7 +35,10 @@ i18n
             "genre" : "Gênero",
             "launchyear": "Ano de lançamento",
             "description" : "Descrição",
-            "rating": "Avaliação"
+            "rating": "Avaliação",
+            "rating a movie": "Avaliar Filme",
+            "rate" : "Avaliar",
+            "cancel" : "Cancelar"
         }
       }
     },

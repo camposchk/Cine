@@ -7,8 +7,10 @@ import axios from "axios";
 import { SECRET } from "../../env";
 import CryptoJS from 'crypto-js';
 import { useTranslation } from 'react-i18next';
+import { useUser } from "../../context/user";
 
 function LoginComponent() {
+  const { setIdUser } = useUser();
   const { t } = useTranslation();
   const { setMessage, setShow, setVariant } = useContext(AlertContext);
 
@@ -35,10 +37,12 @@ function LoginComponent() {
         jsonCrypt,
       });
 
+      const userId = res.data._id;
+      setIdUser(userId);
+
       sessionStorage.setItem("token", res.data.token);
       navigate("/feed");
     } catch (error) {
-        console.log(json);
       setMessage("Erro ao se conectar");
       setShow(true);
       setVariant("danger");

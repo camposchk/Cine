@@ -27,7 +27,6 @@ class UserController {
     if (password != confirmPassword)
       return res.status(400).json({ message: "As senhas não conferem" });
 
-
     const userExist = await User.findOne({ email: email });
 
     if (userExist)
@@ -42,7 +41,7 @@ class UserController {
       name,
       email,
       password: passwordCrypt,
-      isAdm
+      isAdm,
       //   createdAt: Date.now(),
       //   updatedAt: Date.now(),
       //   removedAt: null,
@@ -80,26 +79,26 @@ class UserController {
       if (!user) {
         return res.status(401).json({ message: "Usuário não encontrado" });
       }
-      
+
       const decryptedPassword = CryptoJS.AES.decrypt(
         user.password,
         process.env.SECRET
-        ).toString(CryptoJS.enc.Utf8);
-        
-        if (password !== decryptedPassword) {
-          return res.status(401).json({ message: "Senha incorreta" });
-        }
-        
-        const token = jwt.sign(
-          {
-            id: user._id,
-            email: user.email,
-            isAdm: user.isAdm
-          },
-          process.env.SECRET,
-          { expiresIn: "1h" }
-        );
-        
+      ).toString(CryptoJS.enc.Utf8);
+
+      if (password !== decryptedPassword) {
+        return res.status(401).json({ message: "Senha incorreta" });
+      }
+
+      const token = jwt.sign(
+        {
+          id: user._id,
+          email: user.email,
+          isAdm: user.isAdm,
+        },
+        process.env.SECRET,
+        { expiresIn: "1h" }
+      );
+
       res.status(200).json({
         message: "Login efetuado com sucesso",
         token,

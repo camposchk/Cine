@@ -16,7 +16,9 @@ export default function ProtectedRoute({ errorPage, targetPage }) {
     const { exp } = decodeToken;
 
     const isAdm = decodeToken.isAdm;
+    const id = decodeToken.id
 
+    sessionStorage.setItem("id", id);
 
     sessionStorage.setItem("isAdm", isAdm);
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, forwardRef } from "react";
-import { Button, Card, Col, Container, Row, Image, Fade } from "react-bootstrap";
+// import { Button, Card, Col, Container, Row, Image, Fade } from "react-bootstrap";
+import { Card, Col, Container, Fade, Row } from "react-bootstrap";
 import styles from "./style.module.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +49,7 @@ export default function Feed() {
     return media;
   }
 
-  const RenderPosts = forwardRef((props, ref) => {
+  const RenderPosts = forwardRef(( props, ref) => {
     if (movies.length === 0) {
       return <p>Nenhum filme encontrado.</p>;
     }
@@ -94,7 +95,7 @@ export default function Feed() {
             </Card>
           </Col>
           {movie2 && (
-            <Col md={6}>
+            <Col md={6}> 
               <Card
                 border="dark"
                 onClick={() => handleClick(idMovie2)}
@@ -129,9 +130,7 @@ export default function Feed() {
 
   return (
     <Container>
-      <Fade in={true} timeout={500}>
         <RenderPosts />
-      </Fade>
     </Container>
   );
 }
