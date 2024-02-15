@@ -67,7 +67,10 @@ class MovieController {
 
 static async deleteById(req, res) {
   try {
-    await Movie.deleteById(req.params.id);
+    const deletedMovie = await Movie.findByIdAndDelete(req.params.id); 
+
+    if (!deletedMovie) 
+      return res.status(404).send({ message: "Filme não encontrado" });
 
     return res.status(200).send({ message: "Filme excluído com sucesso" });
   } catch (error) {
@@ -75,6 +78,7 @@ static async deleteById(req, res) {
     return res.status(500).send({ message: "Erro ao excluir filme" });
   }
 }
+
 
 static async rating(req, res) {
   const { idMovie, idUser } = req.params;

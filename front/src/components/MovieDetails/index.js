@@ -1,22 +1,32 @@
-import { useEffect, useState, useContext } from 'react';
-import { Button, Card, Container } from 'react-bootstrap';
-import axios from 'axios';
-import styles from './style.module.scss';
-import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
-import Modal from 'react-modal';
+import { useEffect, useState, useContext } from "react";
+import { Button, Card, Container } from "react-bootstrap";
+import axios from "axios";
+import styles from "./style.module.scss";
+import { BsStarFill, BsStar, BsStarHalf } from "react-icons/bs";
+import Modal from "react-modal";
 import { AlertContext } from "../../context/alert";
-
+import { func } from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 export default function MovieDetails({ idMovie }) {
     const { setMessage, setShow, setVariant } = useContext(AlertContext);
 
  
     var [stars, setStars] = useState("");
-    const [movie, setMovie] = useState(null);
-    const [modalIsOpen, setIsOpen] = useState(false);
+  const [movie, setMovie] = useState(null);
+  const [modalIsOpen, setIsOpen] = useState(false);
     const [rating, setRating] = useState(null);
 
     sessionStorage.setItem("idMovie", idMovie);
+
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  function isAdm() {
+    const isAdmin = sessionStorage.getItem("isAdm");
+    return isAdmin === 'true';
+  }
 
     async function getMovieDetails() {
         try {
@@ -102,24 +112,33 @@ export default function MovieDetails({ idMovie }) {
         setRating(value);
     }
     
-   
+    async function handleDelete() {
+      try {
+        await axios.delete(`http://localhost:8080/movie/delete/${idMovie}`);
+        navigate("/feed");
+        console.log("deletado");
+      } catch (error) {
+        console.error("Erro ao deletar filme: ", error);
+      }
+    }
 
     return (
         <Container>
             {movie && (
-                <Card>
+                <Card style={{marginTop: 20}}>
                     <Card.Title>{movie.name}</Card.Title>
                     <Card.Body>
-                        <Card.Text>Genre: {movie.genre}</Card.Text>
-                        <Card.Text>Launch Year: {movie.launchDate}</Card.Text>
-                        <Card.Text>Description: {movie.description}</Card.Text>
-                        <div>
+                      <Card.Text>{t('genre')}: {movie.genre}</Card.Text>
+                      <Card.Text>{t('launchyear')}: {movie.launchDate}</Card.Text>
+                      <Card.Text>{t('description')}: {movie.description}</Card.Text>
+                      <div>
                             {renderStars(MediaRating(movie))}
                             <p>{MediaRating(movie)}</p>
                         </div>
                         <div>
-                            <button onClick={abrirModal}>Avaliar Filme</button>
-                            <Modal isOpen={modalIsOpen} onRequestClose={fecharModal} contentLabel="Rating">
+                          <Button variant="light" onClick={abrirModal}>{t('rating a movie')}</Button>
+                          {isAdm() ? <Button variant="danger" onClick={handleDelete} style={{marginLeft: 10}}>{t('Delete')}</Button> : <></>}
+                          <Modal isOpen={modalIsOpen} onRequestClose={fecharModal} contentLabel="Rating">
                                 <h2>Avaliar {movie.name}</h2>
                                 <ul id="rating" className={styles.rating}>
                                     {[1, 2, 3, 4, 5].map((value) => (

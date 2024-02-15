@@ -6,7 +6,6 @@ export default function ProtectedRoute({ errorPage, targetPage }) {
 
   function renderPage() {
     const token = sessionStorage.getItem("token");
-    console.log(token);
 
     if (!token) {
       setPage(errorPage);
@@ -20,6 +19,9 @@ export default function ProtectedRoute({ errorPage, targetPage }) {
     const id = decodeToken.id
 
     sessionStorage.setItem("id", id);
+
+    sessionStorage.setItem("isAdm", isAdm);
+
 
     if (exp + "000" - Date.now() < 0) {
       setPage(errorPage);

@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 
 export function AccessDenied() {
   return (
+    <>
     <Row className={styles.container}>
       <Container>
         <Col xs={12} sm={9} md={6}>
@@ -27,5 +28,6 @@ export function AccessDenied() {
         </Col>
       </Container>
     </Row>
+    </>
   );
 }
