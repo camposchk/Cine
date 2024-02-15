@@ -129,19 +129,23 @@ export default function MovieDetails({ idMovie }) {
             <Card.Text>
               {t("description")}: {movie.description}
             </Card.Text>
-            <div>
-              {renderStars(MediaRating(movie))}
-              <p>{MediaRating(movie)}</p>
+            <div style={{ display: 'inline', alignItems: 'center'}}>
+                {renderStars(MediaRating(movie))}
+                <span style={{ marginLeft: '5px' }}>{MediaRating(movie)}</span>
             </div>
+
+
             <div>
-              <Button variant="light" onClick={() => setModalShow(true)}>
+             {!isAdm() ? ( <Button variant="light" style={{marginTop: '15px'}} onClick={() => setModalShow(true)}>
                 {t("rating a movie")}
-              </Button>
+              </Button> ) : (
+                <></>
+              )}
               {isAdm() ? (
                 <Button
                   variant="danger"
                   onClick={handleDelete}
-                  style={{ marginLeft: 10 }}
+                  style={{ marginTop: '15px' }}
                 >
                   {t("Delete")}
                 </Button>

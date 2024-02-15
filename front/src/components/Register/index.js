@@ -118,14 +118,11 @@ function RegisterComponent() {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" style={{ marginBottom: 100 }}>
+       <Button variant="primary" type="submit" style={{ marginBottom: 100, backgroundColor: '#1A1D5F', border: 'none'}}>
           {t('Register')}
         </Button>
 
-        <Button
-          variant="secondary"
-          type="button"
-          style={{ marginBottom: 100, marginLeft: 10 }}
+        <Button variant="secondary" type="button" style={{ marginBottom: 100, marginLeft: 10, backgroundColor: '#FF975D', border: 'none' }}
           onClick={() => navigate("/")}
         >
           {t('Login')}
